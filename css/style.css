@@ -1,0 +1,62 @@
+.header1 {
+    text-align: center;
+    color: rgb(231, 63, 236);
+    font-family: roboto;
+    font-weight: 900;
+    font-size: 2rem;
+}
+
+body {
+    background-image: url('/assets/img/zov-ktulhu.jpg');
+    background-repeat: no-repeat;
+}
+
+.ancient__container {
+    width: 60vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.ancient-card {
+    height: 35vh;
+}
+
+.level-and-tracker_container {}
+
+.tracker__container {}
+
+.stage__container {}
+
+.stage {}
+
+.card__container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card {
+    padding: 10px 15px;
+    border-radius: 3px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.green_card {
+
+    background-color: green;
+}
+
+.brown_card {
+
+    background-color: brown;
+}
+
+.blue_card {
+
+    background-color: blue;
+}
