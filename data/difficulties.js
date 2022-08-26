@@ -9,8 +9,8 @@ const difficulties = [
   },
   {
     id: 'hard',
-    name: 'Высокая'
-  },
+    name: 'Высокая',
+  }
 ]
 
 export default difficulties
