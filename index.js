@@ -103,6 +103,7 @@ let cardSet = [];
 let cardsLeft = 0;
 const ancientsList = document.querySelectorAll('.ancient-card');
 let newCardDeck = [];
+let currentCard = '';
 
 ancientsList.forEach(item => item.addEventListener('click', choosenAncient))
 
@@ -125,11 +126,12 @@ function getCardSet() {
 
 function randomizeCards() {
     let randomized = [];
-    const color = ['green', 'brown', 'blue'];
+    const color = ['blue', 'green', 'brown'];
+   
     for (let i = 0; i < cards.length; i++) {
         let set = new Set;
         while (set.size < cardSet[i]) {
-            set.add(`${color[i]}${Math.floor(Math.random() * cards[i].length)}`)
+            set.add(`${color[i]}${1+Math.floor(Math.random() * cards[i].length)}`)
         }
         set = Array.from(set);
         randomized.push(set);
@@ -154,24 +156,29 @@ function getCardDeck() {
 
         for (let i = 0; i < stages.length; i++) {
             let set = new Set;
-            console.log(stages[i]);
             while (set.size < stages[i]) {
-                set.add(randomCards[Math.floor(Math.random() * (randomCards.length - 1))])
+                set.add(randomCards[1+Math.floor(Math.random() * (randomCards.length - 1))])
             }
             set = Array.from(set);
             newCardDeck.push(set);
         }
-        console.log(newCardDeck)
+        console.log(newCardDeck);
+        setTracker();
+        newCardDeck = newCardDeck.flat();
+        cardsOnscreenReset();
         return newCardDeck;
     }
 }
 
 function getCardsOnScreen() {
-    let cardDeck = getCardDeck();
-    console.log(cardDeck);
+    const cardOnScreen = document.querySelector('.current-card__container');
+    cardOnScreen.style.backgroundImage = `url('./assets/mythicCards/${currentCard.toString().replace(/\d/g,'')}/${currentCard}.png')`;
 
 }
-
+function cardsOnscreenReset() {
+    const cardOnScreen = document.querySelector('.current-card__container');
+    cardOnScreen.style.backgroundImage = 'none';
+}
 
 const dealCards = document.querySelector('.deal-cards');
 
@@ -212,8 +219,28 @@ function setTracker() {
     thirdBrown.textContent = ancientsData[choosen].thirdStage.brownCards;
     thirdBlue.textContent = ancientsData[choosen].thirdStage.blueCards;
 
+}
 
-    cardsLeft--
+function decentTracker() {
+    const firstGreen = document.querySelector('.first.stage.card.green_card');
+    const firstBrown = document.querySelector('.first.stage.card.brown_card');
+    const firstBlue = document.querySelector('.first.stage.card.blue_card');
+    const secondGreen = document.querySelector('.second.stage.card.green_card');
+    const secondBrown = document.querySelector('.second.stage.card.brown_card');
+    const secondBlue = document.querySelector('.second.stage.card.blue_card');
+    const thirdGreen = document.querySelector('.third.stage.card.green_card');
+    const thirdBrown = document.querySelector('.third.stage.card.brown_card');
+    const thirdBlue = document.querySelector('.third.stage.card.blue_card');
+
+    const firstStage = ancientsData[choosen].firstStage.greenCards + ancientsData[choosen].firstStage.brownCards
+        + ancientsData[choosen].firstStage.blueCards;
+    const secondStage = ancientsData[choosen].secondStage.greenCards + ancientsData[choosen].secondStage.brownCards
+        + ancientsData[choosen].secondStage.blueCards;
+    const thirdStage = ancientsData[choosen].thirdStage.greenCards + ancientsData[choosen].thirdStage.brownCards
+        + ancientsData[choosen].thirdStage.blueCards;
+
+    
+            cardsLeft--
     if (cardsLeft == 0)
         alert('Карты кончились! Тасанем еще?');
     console.log(cardsLeft);
@@ -221,12 +248,12 @@ function setTracker() {
     if (cardsLeft <= cardsLeft - secondStage - thirdStage)
         firstGreen.textContent -= 1;
 
-
 }
 
 function openCard() {
+    currentCard = newCardDeck.splice(0, 1);
     getCardsOnScreen();
-    setTracker();
+    decentTracker();
 }
 
 takeCard.addEventListener('click', openCard)
