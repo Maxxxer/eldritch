@@ -103,7 +103,9 @@ let cardSet = [];
 let cardsLeft = 0;
 const ancientsList = document.querySelectorAll('.ancient-card');
 let newCardDeck = [];
+let finalCardDeck = [];
 let currentCard = '';
+const color = ['blue', 'green', 'brown']
 
 ancientsList.forEach(item => item.addEventListener('click', choosenAncient))
 
@@ -118,7 +120,8 @@ function getCardSet() {
     let greenCardSet = ([ancientsData[choosen].firstStage.greenCards + ancientsData[choosen].secondStage.greenCards + ancientsData[choosen].thirdStage.greenCards]);
     let brownCardSet = ([ancientsData[choosen].firstStage.brownCards + ancientsData[choosen].secondStage.brownCards + ancientsData[choosen].thirdStage.brownCards]);
     let blueCardSet = ([ancientsData[choosen].firstStage.blueCards + ancientsData[choosen].secondStage.blueCards + ancientsData[choosen].thirdStage.blueCards]);
-    cardSet = [greenCardSet, blueCardSet, brownCardSet];
+    cardSet = [blueCardSet, greenCardSet, brownCardSet];
+    console.log(cardSet);
     cardsLeft = +cardSet[0] + (+cardSet[1]) + (+cardSet[2]);
 }
 
@@ -126,28 +129,29 @@ function getCardSet() {
 
 function randomizeCards() {
     let randomized = [];
-    const color = ['blue', 'green', 'brown'];
-   
+    ;
+
     for (let i = 0; i < cards.length; i++) {
         let set = new Set;
         while (set.size < cardSet[i]) {
-            set.add(`${color[i]}${1+Math.floor(Math.random() * cards[i].length)}`)
+            set.add(`${color[i]}${1 + Math.floor(Math.random() * cards[i].length)}`);
         }
         set = Array.from(set);
         randomized.push(set);
+
     }
+    console.log(randomized);
     return randomized;
 
 }
 
 function getStages() {
-    return [ancientsData[choosen].firstStage.greenCards + ancientsData[choosen].firstStage.brownCards + ancientsData[choosen].firstStage.blueCards, ancientsData[choosen].secondStage.greenCards + ancientsData[choosen].secondStage.brownCards + ancientsData[choosen].secondStage.blueCards, ancientsData[choosen].thirdStage.greenCards + ancientsData[choosen].thirdStage.brownCards + ancientsData[choosen].thirdStage.blueCards];
+    return [[ancientsData[choosen].firstStage.blueCards, ancientsData[choosen].firstStage.greenCards, ancientsData[choosen].firstStage.brownCards], [ancientsData[choosen].secondStage.blueCards, ancientsData[choosen].secondStage.greenCards, ancientsData[choosen].secondStage.brownCards], [ancientsData[choosen].thirdStage.blueCards, ancientsData[choosen].thirdStage.greenCards, ancientsData[choosen].thirdStage.brownCards]];
 
 }
 
 function getCardDeck() {
     let randomCards = randomizeCards();
-    randomCards = randomCards.flat();
     let stages = getStages();
     newCardDeck = [];
     if (cardSet.length === 0) {
@@ -155,24 +159,66 @@ function getCardDeck() {
     } else {
 
         for (let i = 0; i < stages.length; i++) {
-            let set = new Set;
-            while (set.size < stages[i]) {
-                set.add(randomCards[1+Math.floor(Math.random() * (randomCards.length - 1))])
+            let setCards = [];
+            let card;
+            for (let j = 0; j < stages[i].length; j++) {
+                setCards = [];
+                //    console.log('Этап ', i+1, 'цвет ', color[j])
+                // while (setCards.size <stages[i][j]) 
+                for (let y = 0; y < stages[i][j]; y++) {
+                    // console.log('Номер итерации ', y);
+                    card = Math.floor(Math.random() * (1 + randomCards[j].length - 1));
+                    // console.log('Номер случайной карты ',card);                    
+                    setCards.push(randomCards[j].splice([card], 1));
+                    // console.log('Размер сета ',setCards.length);
+                }
+                newCardDeck.push(setCards);
+
+
             }
-            set = Array.from(set);
-            newCardDeck.push(set);
+
         }
+
+        newCardDeck = [newCardDeck[0].concat(newCardDeck[1], newCardDeck[2]).flat(), newCardDeck[3].concat(newCardDeck[4], newCardDeck[5]).flat(), newCardDeck[6].concat(newCardDeck[7], newCardDeck[8]).flat()];
+        console.log('Расклад ', newCardDeck);
         console.log(newCardDeck);
-        setTracker();
-        newCardDeck = newCardDeck.flat();
-        cardsOnscreenReset();
+
         return newCardDeck;
     }
 }
 
+function getFinalCardDeck() {
+    let stagesCardDeck = getCardDeck();
+    let stages = getStages();
+    finalCardDeck = [];
+    for (let i = 0; i < stagesCardDeck.length; i++) {
+        console.log('Номер ЭТАПА ', stages[i]);
+        console.log('Карты этапа ', stagesCardDeck[i]);
+        let setCards = new Set;
+        let card;
+        // for (let y = 0; y < stagesCardDeck[i].length; y++)
+        while (setCards.size != stagesCardDeck[i].length) {
+            // console.log('Номер итерации ', );
+            card = Math.floor(Math.random() * (1 + stagesCardDeck[i].length - 1));
+            console.log('Номер случайной карты ', card);
+            setCards.add(stagesCardDeck[i][card]);
+            console.log('Размер сета ', setCards.length);
+        }
+        console.log('Перемешанные карты этапа', setCards)
+        setCards = Array.from(setCards)
+        finalCardDeck.push(setCards);
+
+    }
+    setTracker();
+    cardsOnscreenReset();
+    finalCardDeck = finalCardDeck.flat();
+    console.log('в РАБОТУ ', finalCardDeck)
+
+}
+
 function getCardsOnScreen() {
     const cardOnScreen = document.querySelector('.current-card__container');
-    cardOnScreen.style.backgroundImage = `url('./assets/mythicCards/${currentCard.toString().replace(/\d/g,'')}/${currentCard}.png')`;
+    cardOnScreen.style.backgroundImage = `url('./assets/mythicCards/${currentCard.toString().replace(/\d/g, '')}/${currentCard}.png')`;
 
 }
 function cardsOnscreenReset() {
@@ -182,7 +228,7 @@ function cardsOnscreenReset() {
 
 const dealCards = document.querySelector('.deal-cards');
 
-dealCards.addEventListener('click', getCardDeck);
+dealCards.addEventListener('click', getFinalCardDeck);
 
 const takeCard = document.querySelector('.pass-card__container');
 
@@ -200,14 +246,6 @@ function setTracker() {
     const thirdGreen = document.querySelector('.third.stage.card.green_card');
     const thirdBrown = document.querySelector('.third.stage.card.brown_card');
     const thirdBlue = document.querySelector('.third.stage.card.blue_card');
-
-    const firstStage = ancientsData[choosen].firstStage.greenCards + ancientsData[choosen].firstStage.brownCards
-        + ancientsData[choosen].firstStage.blueCards;
-    const secondStage = ancientsData[choosen].secondStage.greenCards + ancientsData[choosen].secondStage.brownCards
-        + ancientsData[choosen].secondStage.blueCards;
-    const thirdStage = ancientsData[choosen].thirdStage.greenCards + ancientsData[choosen].thirdStage.brownCards
-        + ancientsData[choosen].thirdStage.blueCards;
-
 
     firstGreen.textContent = ancientsData[choosen].firstStage.greenCards;
     firstBrown.textContent = ancientsData[choosen].firstStage.brownCards;
@@ -239,22 +277,59 @@ function decentTracker() {
     const thirdStage = ancientsData[choosen].thirdStage.greenCards + ancientsData[choosen].thirdStage.brownCards
         + ancientsData[choosen].thirdStage.blueCards;
 
-    
+    if (cardsLeft - secondStage - thirdStage <= firstStage && cardsLeft - secondStage - thirdStage > 0) {
+        switch (currentCard.toString().replace(/\d/g, '')) {
+            case ('blue'):
+                firstBlue.textContent--;
+                break;
+            case ('green'):
+                firstGreen.textContent--;
+                break;
+            case ('brown'):
+                firstBrown.textContent--;
+                break;
+        }
+    } else
+        if (cardsLeft <= secondStage+thirdStage && cardsLeft > thirdStage)
+            switch (currentCard.toString().replace(/\d/g, '')) {
+                case ('blue'):
+                    secondBlue.textContent--;
+                    break;
+                case ('green'):
+                    secondGreen.textContent--;
+                    break;
+                case ('brown'):
+                    secondBrown.textContent--;
+                    break;
+            }
+        else {
+            switch (currentCard.toString().replace(/\d/g, '')) {
+                case ('blue'):
+                    thirdBlue.textContent--;
+                    break;
+                case ('green'):
+                    thirdGreen.textContent--;
+                    break;
+                case ('brown'):
+                    thirdBrown.textContent--;
+                    break;
+            }
+        }
             cardsLeft--
-    if (cardsLeft == 0)
-        alert('Карты кончились! Тасанем еще?');
-    console.log(cardsLeft);
+            if (cardsLeft == 0)
+                alert('Карты кончились! Тасанем еще?');
+            console.log(cardsLeft);
 
-    if (cardsLeft <= cardsLeft - secondStage - thirdStage)
-        firstGreen.textContent -= 1;
+            if (cardsLeft <= cardsLeft - secondStage - thirdStage)
+                firstGreen.textContent -= 1;
 
-}
+        }
 
-function openCard() {
-    currentCard = newCardDeck.splice(0, 1);
-    getCardsOnScreen();
-    decentTracker();
-}
+    function openCard() {
+        currentCard = finalCardDeck.splice(0, 1);
+        getCardsOnScreen();
+        decentTracker();
+    }
 
-takeCard.addEventListener('click', openCard)
+    takeCard.addEventListener('click', openCard)
 
