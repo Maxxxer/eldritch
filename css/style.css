@@ -12,7 +12,7 @@
 }
 
 body {
-    background-image: url('/assets/img/zov-ktulhu.jpg');
+    background-image: url('./assets/img/zov-ktulhu.jpg');
     background-repeat: no-repeat;
     overflow: hidden;
 }
