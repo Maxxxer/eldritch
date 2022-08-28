@@ -218,7 +218,7 @@ function getFinalCardDeck() {
 
 function getCardsOnScreen() {
     const cardOnScreen = document.querySelector('.current-card__container');
-    cardOnScreen.style.backgroundImage = `url('./assets/mythicCards/${currentCard.toString().replace(/\d/g, '')}/${currentCard}.png')`;
+    cardOnScreen.style.backgroundImage = `url('./assets/MythicCards/${currentCard.toString().replace(/\d/g, '')}/${currentCard}.png')`;
 
 }
 function cardsOnscreenReset() {
