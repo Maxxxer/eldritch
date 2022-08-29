@@ -1,28 +1,35 @@
 import cards from "./data/cards.js";
 import ancientsData from "./data/ancients.js";
-import difficulties from "./data/difficulties.js"
 
 
 let choosen = 0;
+let complexity = 2;
 let cardSet = [];
 let cardsLeft = 0;
 const ancientsList = document.querySelectorAll('.ancient-card');
 let newCardDeck = [];
 let finalCardDeck = [];
 let currentCard = '';
-const color = ['blue', 'green', 'brown']
+const lightCard = [[cards[0][2], cards[0][3], cards[0][4], cards[0][6], cards[0][8], cards[0][9], cards[0][10], cards[0][11]],
+[cards[1][0], cards[1][6], cards[1][7], cards[1][8], cards[1][9], cards[1][10], cards[1][11], cards[1][12], cards[1][13], cards[1][14], cards[1][15], cards[1][16], cards[1][17]],
+[cards[2][0], cards[2][1], cards[2][2], cards[2][3], cards[2][4], cards[2][10], cards[2][11], cards[2][12], cards[2][13], cards[2][14], cards[2][15], cards[2][16], cards[2][17], cards[2][18], cards[2][19], cards[2][20]]];
+const mediumCard = cards;
+const hardCard = [[cards[0][0], cards[0][1], cards[0][5], cards[0][6], cards[0][7], cards[0][8], cards[0][10], cards[0][11]],
+[cards[1][1], cards[1][2], cards[1][3], cards[1][4], cards[1][5], cards[1][6], cards[1][7], cards[1][8], cards[1][9], cards[1][10], cards[1][12], cards[1][13], cards[1][14]],
+[cards[2][0], cards[2][1], cards[2][2], cards[2][3], cards[2][4], cards[2][5], cards[2][6], cards[2][7], cards[2][8], cards[2][9], cards[2][14], cards[2][15], cards[2][16], cards[2][17], cards[2][18], cards[2][19]]];
+const levelCardSet = [[], lightCard, mediumCard, hardCard, []];
 
 ancientsList.forEach(item => item.addEventListener('click', choosenAncient))
 
 function choosenAncient(e) {
-    deleteActiveState();
+    deleteActiveState(ancientsList);
     choosen = e.target.id;
-    getCardSet();
     e.target.classList.add('active');
 }
 
-function deleteActiveState() {
-    ancientsList.forEach(item => item.classList.remove('active'))
+function deleteActiveState(tag) {
+    tag.forEach(item => item.classList.remove('active'));
+
 }
 
 function getCardSet() {
@@ -33,21 +40,32 @@ function getCardSet() {
     cardsLeft = +cardSet[0] + (+cardSet[1]) + (+cardSet[2]);
 }
 
+//---------------------------------Выбор сложности--------------------------------
+const levelBtns = document.querySelectorAll('.complexity');
+levelBtns.forEach(item => item.addEventListener('click', getLevel))
 
+function getLevel(e) {
+    deleteActiveState(levelBtns);
+    complexity = e.target.id;
+    e.target.classList.add('active');
+}
 
 function randomizeCards() {
     let randomized = [];
-    ;
-
-    for (let i = 0; i < cards.length; i++) {
+    
+    for (let i = 0; i < levelCardSet[complexity].length; i++) {
         let set = new Set;
         while (set.size < cardSet[i]) {
-            set.add(`${color[i]}${1 + Math.floor(Math.random() * cards[i].length)}`);
+            let cardNumber = Math.floor(Math.random() * levelCardSet[complexity][i].length);
+            let card = levelCardSet[complexity][i][cardNumber];
+               set.add(card.toString());
         }
-        set = Array.from(set);
-        randomized.push(set);
+        let arr = Array.from(set);
+    
+        randomized.push(arr);
 
     }
+
     return randomized;
 
 }
@@ -59,7 +77,7 @@ function getStages() {
 
 function getCardDeck() {
     let randomCards = randomizeCards();
-    let stages = getStages();
+      let stages = getStages();
     newCardDeck = [];
     if (cardSet.length === 0) {
         alert('Выберите древнего');
@@ -86,9 +104,9 @@ function getCardDeck() {
 }
 
 function getFinalCardDeck() {
+    getCardSet();
     let stagesCardDeck = getCardDeck();
-    let stages = getStages();
-    finalCardDeck = [];
+       finalCardDeck = [];
     for (let i = 0; i < stagesCardDeck.length; i++) {
         let setCards = new Set;
         let card;
@@ -166,12 +184,13 @@ function decentTracker() {
         + ancientsData[choosen].secondStage.blueCards;
     const thirdStage = ancientsData[choosen].thirdStage.greenCards + ancientsData[choosen].thirdStage.brownCards
         + ancientsData[choosen].thirdStage.blueCards;
+       
 
-        if (cardsLeft == 0)
+    if (cardsLeft == 0)
         alert('Карты кончились! Тасанем еще?');
     if (cardsLeft <= cardsLeft - secondStage - thirdStage)
         firstGreen.textContent -= 1;
-        
+
     if (cardsLeft - secondStage - thirdStage <= firstStage && cardsLeft - secondStage - thirdStage > 0) {
         switch (currentCard.toString().replace(/\d/g, '')) {
             case ('blue'):
@@ -211,7 +230,7 @@ function decentTracker() {
             }
         }
     cardsLeft--;
- 
+
 
 }
 
@@ -221,5 +240,4 @@ function openCard() {
     decentTracker();
 }
 
-takeCard.addEventListener('click', openCard)
-
+takeCard.addEventListener('click', openCard);
