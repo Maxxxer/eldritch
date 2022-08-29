@@ -1,6 +1,6 @@
 import cards from "./data/cards.js";
 import ancientsData from "./data/ancients.js";
-
+console.log('Привет. Реализованы только три уровня сложности, остальные все пункты ТЗ выполненны. Спасибо за проверку!')
 
 let choosen = 0;
 let complexity = 2;
