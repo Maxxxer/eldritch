@@ -17,6 +17,9 @@ body {
     overflow: hidden;
 }
 
+h2 {
+    color: antiquewhite;
+}
 .upper-part {
     display: flex;
     justify-content: space-between;
@@ -31,11 +34,11 @@ body {
 
 .ancient__container {
     width: 60vw;
-    height: 50vh;
+    height: 40vh;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
 }
 
@@ -74,21 +77,13 @@ body {
 
     background-color: blue;
 }
-.level__container {
-}
+
 .level {
     display: flex;
     justify-content: center;
     align-items: center;
    
 }
-.complexity {
-    border-radius: 5px;
-    border: none;
-    font-family: roboto, sans-serif;
-    font-size: 1rem;
-}
-
 .deal-cards__container {
     display: flex;
     flex-direction: column;
@@ -97,9 +92,30 @@ body {
     padding-bottom: 20px;
 }
 .complexity {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    font-family: roboto, sans-serif;
+    font-size: 1rem;
 }
+.complexity:hover{
+    background-color: rgb(94, 41, 94);
+  
+    }
+    
+    .complexity:active{
+        box-shadow:0px 1px 3px white;
+        color: antiquewhite;
+    }
+
+    .complexity.active {
+        background-color: rgb(94, 41, 94);
+    }
+
+
 .deal-cards {
     height: 20vh;
+    width: 25vw;
     font-size: 4rem;
     font-family: roboto, sans-serif;
     font-weight: 900;
@@ -119,23 +135,20 @@ font-size: 3rem;
 }
 
 
-.lower-part-right {
-}
 .cards-container {
     display: flex;
 gap: 10px
 }
-.pass-card__container {
-}
+
 .card-face-down {
     height: 25vh;
     cursor: pointer;
 }
 .current-card__container {
-    width: 14vw;
-    height: 40vh;
-    border: 3px solid black;
+    width: 12.5vw;
+    height: 38vh;
+    border: 3px solid rgb(238, 1, 1);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
 }

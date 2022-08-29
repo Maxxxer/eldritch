@@ -15,71 +15,74 @@
 
 <body>
     <div class="wrapper">
-    <h1 class="header1">The Eldritch helper</h1>
-    <div class="upper-part">
-        <div class="ancient__container">
-            <div><img class="ancient-card" id="0" src="assets/Ancients/Azathoth.png" alt=""></div>
-            <div><img class="ancient-card" id="1" src="assets/Ancients/Cthulthu.png" alt=""></div>
-            <div><img class="ancient-card" id="2" src="assets/Ancients/IogSothoth.png" alt=""></div>
-            <div><img class="ancient-card" id="3" src="assets/Ancients/ShubNiggurath.png" alt=""></div>
+        <h1 class="header1">The Eldritch helper</h1>
+        <h2 class="level">1. Выберите древнего</h2>
+        <div class="upper-part">
+            <div class="ancient__container">
+                <div><img class="ancient-card" id="0" src="assets/Ancients/Azathoth.png" alt=""></div>
+                <div><img class="ancient-card" id="1" src="assets/Ancients/Cthulthu.png" alt=""></div>
+                <div><img class="ancient-card" id="2" src="assets/Ancients/IogSothoth.png" alt=""></div>
+                <div><img class="ancient-card" id="3" src="assets/Ancients/ShubNiggurath.png" alt=""></div>
 
+            </div>
+            <div class="level-and-tracker_container">
+                <div class="tracker__container">
+                    <div class="stage__container">
+                        <div class="stage">1-й этап</div>
+                        <div class="card__container">
+                            <div class="first stage card blue_card">0</div>
+                            <div class="first stage card green_card">0</div>
+                            <div class="first stage card brown_card">0</div>
+
+                        </div>
+                    </div>
+                    <div class="stage__container">
+                        <div class="stage">2-й этап</div>
+                        <div class="card__container">
+                            <div class="second stage card blue_card">0</div>
+                            <div class="second stage card green_card">0</div>
+                            <div class="second stage card brown_card">0</div>
+
+                        </div>
+                    </div>
+                    <div class="stage__container">
+                        <div class="stage">3-й этап</div>
+                        <div class="card__container">
+                            <div class="third stage card blue_card">0</div>
+                            <div class="third stage card green_card">0</div>
+                            <div class="third stage card brown_card">0</div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <div class="level-and-tracker_container">
-            <div class="tracker__container">
-                <div class="stage__container">
-                    <div class="stage">1-й этап</div>
-                    <div class="card__container">
-                        <div class="first stage card blue_card">0</div>
-                        <div class="first stage card green_card">0</div>
-                        <div class="first stage card brown_card">0</div>
-                        
-                    </div>
+        <div class="lower-part">
+            <div class="deal-cards__container">
+                <div class="level__container">
+                    <h2 class="level">2. Выберите уровень сложности</h2>
+                    <!-- <button class="complexity" id="0">Очень легко</button> -->
+                    <button class="complexity" id="1">Легко</button>
+                    <button class="complexity active" id="2">Средне</button>
+                    <button class="complexity" id="3">Сложно</button>
+                    <!-- <button class="complexity" id="4">ААААдов АААД!!!</button> -->
                 </div>
-                <div class="stage__container">
-                    <div class="stage">2-й этап</div>
-                    <div class="card__container">
-                        <div class="second stage card blue_card">0</div>
-                        <div class="second stage card green_card">0</div>
-                        <div class="second stage card brown_card">0</div>
-                       
+                <button class="deal-cards">Сдать колоду</button>
+            </div>
+            <div class="lower-part-right">
+                <h2 style="color: rgb(186, 10, 240);">3. Тяните карту!</h2>
+                <div class="cards-container">
+                    <div class="pass-card__container"><img class="card-face-down" src="assets/mythicCardBackground.png"
+                            alt="Mystic card face down">
                     </div>
-                </div>
-                <div class="stage__container">
-                    <div class="stage">3-й этап</div>
-                    <div class="card__container">
-                        <div class="third stage card blue_card">0</div>
-                        <div class="third stage card green_card">0</div>
-                        <div class="third stage card brown_card">0</div>
-                       
-                    </div>
+                    <div class="current-card__container"></div>
                 </div>
 
             </div>
         </div>
     </div>
-    <div class="lower-part">
-        <div class="deal-cards__container">
-            <div class="level__container">
-                <div class="level">Выберите уровень сложности</div>
-                <button class="complexity" id="very_easy">Очень легко</button>
-                <button class="complexity" id="easy">Легко</button>
-                <button class="complexity" id="middle">Средне</button>
-                <button class="complexity" id="hard">Сложно</button>
-                <button class="complexity" id="very_hard">ААААдов АААД!!!</button>
-            </div>
-            <button class="deal-cards">Сдать колоду</button>
-        </div>
-        <div class="lower-part-right">
-            <div class="cards-container">
-                <div class="pass-card__container"><img class="card-face-down" src="assets/mythicCardBackground.png"
-                        alt="Mystic card face down"></div>
-                <div class="current-card__container"></div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<script type="module" src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 
 </html>
