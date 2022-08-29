@@ -12,7 +12,7 @@
 }
 
 body {
-    background-image: url('./assets/img/zov-ktulhu.jpg');
+    background-image: url('../assets/img/zov-ktulhu.jpg');
     background-repeat: no-repeat;
     overflow: hidden;
 }
@@ -40,16 +40,13 @@ body {
 }
 
 .ancient-card {
-    height: 35vh;
+    height: 38vh;
+    cursor: pointer;
 }
 
-.level-and-tracker_container {}
-
-.tracker__container {}
-
-.stage__container {}
-
-.stage {}
+.ancient-card.active {
+    border: 5px solid red;
+}
 
 .card__container {
     display: flex;
@@ -107,7 +104,21 @@ body {
     font-family: roboto, sans-serif;
     font-weight: 900;
     border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
+
+.deal-cards:hover{
+background-color: rgb(94, 41, 94);
+font-size: 3rem;
+}
+
+.deal-cards:active{
+    box-shadow:0px 1px 3px white;
+    color: antiquewhite;
+}
+
+
 .lower-part-right {
 }
 .cards-container {
@@ -117,10 +128,11 @@ gap: 10px
 .pass-card__container {
 }
 .card-face-down {
-    height: 40vh;
+    height: 25vh;
+    cursor: pointer;
 }
 .current-card__container {
-    width: 10vw;
+    width: 14vw;
     height: 40vh;
     border: 3px solid black;
     background-repeat: no-repeat;
